@@ -5,16 +5,16 @@ from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 client = MongoClient('localhost', 27017)
-db = client.dbsparta
+db = client.localDB
 
 
-# HTML 화면 보여주기
+# Show HTML
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
-# API 역할을 하는 부분
+# API
 @app.route('/api/list', methods=['GET'])
 def show_stars():
     movie_star = list(db.mystar.find({}, {'_id': False}).sort('like', -1))
